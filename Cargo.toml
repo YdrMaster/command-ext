@@ -1,0 +1,6 @@
+[package]
+name = "command-ext"
+version = "0.1.0"
+author = ["YdrMaster <ydrml@hotmail.com>"]
+edition = "2021"
+readme = "README.md"
