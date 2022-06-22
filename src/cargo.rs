@@ -57,9 +57,7 @@ impl Cargo {
         I: IntoIterator<Item = S>,
         S: AsRef<OsStr>,
     {
-        if !default {
-            self.arg("--no-default-features");
-        }
+        self.option((!default).then_some("--no-default-features"));
 
         let mut iter = feats.into_iter();
         if let Some(feat) = iter.next() {

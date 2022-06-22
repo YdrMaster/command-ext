@@ -32,6 +32,27 @@ pub trait CommandExt: AsRef<Command> + AsMut<Command> {
         self
     }
 
+    fn optional<T>(&mut self, option: &Option<T>, op: impl FnOnce(&mut Self, &T)) -> &mut Self {
+        if let Some(val) = option {
+            op(self, val);
+        }
+        self
+    }
+
+    fn conditional(&mut self, condition: bool, op: impl FnOnce(&mut Self)) -> &mut Self {
+        if condition {
+            op(self);
+        }
+        self
+    }
+
+    fn option(&mut self, option: Option<impl AsRef<OsStr>>) -> &mut Self {
+        if let Some(arg) = option {
+            self.as_mut().arg(arg);
+        }
+        self
+    }
+
     fn current_dir(&mut self, dir: impl AsRef<Path>) -> &mut Self {
         self.as_mut().current_dir(dir);
         self

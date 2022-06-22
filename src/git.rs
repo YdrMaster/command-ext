@@ -16,9 +16,7 @@ impl Git {
 
     pub fn config(global: bool) -> Self {
         let mut git = Self::new("config");
-        if global {
-            git.arg("--global");
-        };
+        git.option(global.then_some("--global"));
         git
     }
 
@@ -38,10 +36,7 @@ impl Git {
 
     pub fn submodule_update(init: bool) -> Self {
         let mut git = Self::new("submodule");
-        git.arg("update");
-        if init {
-            git.arg("--init");
-        }
+        git.arg("update").option(init.then_some("--init"));
         git
     }
 }
