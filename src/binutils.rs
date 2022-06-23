@@ -9,6 +9,13 @@ impl BinUtil {
         let installed = Cargo::install().arg("--list").output().stdout;
         let check = String::from_utf8_lossy(&installed)
             .lines()
+            .filter_map(|line| {
+                if cfg!(target_os = "windows") {
+                    line.trim().strip_suffix(".exe")
+                } else {
+                    Some(line.trim())
+                }
+            })
             .any(|line| OsStr::new(line) == which);
         if !check {
             Cargo::install().arg("cargo-binutils").invoke();
