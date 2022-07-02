@@ -3,12 +3,14 @@ mod cargo;
 pub mod dir;
 mod git;
 mod make;
+mod qemu;
 mod tar;
 
 pub use binutils::BinUtil;
 pub use cargo::Cargo;
 pub use git::Git;
 pub use make::Make;
+pub use qemu::Qemu;
 pub use tar::Tar;
 
 use std::{

@@ -4,3 +4,6 @@ version = "0.1.0"
 authors = ["YdrMaster <ydrml@hotmail.com>"]
 edition = "2021"
 readme = "README.md"
+
+[dependencies]
+lazy_static = "1.4.0"
