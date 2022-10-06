@@ -1,4 +1,5 @@
 ﻿use super::ext;
+use once_cell::sync::Lazy;
 use std::{
     collections::HashSet,
     ffi::{OsStr, OsString},
@@ -9,14 +10,13 @@ use std::{
 
 ext!(def; Qemu);
 
-lazy_static::lazy_static! {
-    static ref SEARCH_DIRS: Mutex<HashSet<PathBuf>> =
-        if cfg!(target_os = "windows") {
-            Mutex::new(HashSet::from_iter([PathBuf::from(r"C:\Program Files\qemu")]))
-        } else {
-            Mutex::new(HashSet::new())
-        };
-}
+static SEARCH_DIRS: Lazy<Mutex<HashSet<PathBuf>>> = Lazy::new(|| {
+    Mutex::new(if cfg!(target_os = "windows") {
+        HashSet::from_iter([PathBuf::from(r"C:\Program Files\qemu")])
+    } else {
+        HashSet::new()
+    })
+});
 
 impl Qemu {
     pub fn search_at(path: impl AsRef<Path>) {
