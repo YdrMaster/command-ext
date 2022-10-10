@@ -1,9 +1,13 @@
 [package]
 name = "command-ext"
-version = "0.1.0"
+description = "Extension of `std::process::Command`"
+version = "0.0.0"
 authors = ["YdrMaster <ydrml@hotmail.com>"]
 edition = "2021"
 readme = "README.md"
+license = "MulanPSL-2.0 OR MIT"
+keywords = ["command", "cli"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 once_cell = "1.15"

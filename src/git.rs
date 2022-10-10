@@ -50,21 +50,25 @@ pub struct GitCloneContext {
 }
 
 impl GitCloneContext {
+    #[inline]
     pub fn dir(mut self, path: PathBuf) -> Self {
         self.dir = Some(path);
         self
     }
 
+    #[inline]
     pub fn branch(mut self, branch: impl AsRef<str>) -> Self {
         self.branch = Some(branch.as_ref().into());
         self
     }
 
+    #[inline]
     pub fn single_branch(mut self) -> Self {
         self.single_branch = true;
         self
     }
 
+    #[inline]
     pub fn depth(mut self, depth: usize) -> Self {
         self.depth = depth;
         self
@@ -77,7 +81,7 @@ impl GitCloneContext {
             git.arg(dir);
         }
         if let Some(branch) = self.branch {
-            git.args(&["--branch", &branch]);
+            git.args(["--branch", &branch]);
         }
         if self.single_branch {
             git.arg("--single-branch");

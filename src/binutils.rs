@@ -23,10 +23,12 @@ impl BinUtil {
         Self(Command::new(which))
     }
 
+    #[inline]
     pub fn objcopy() -> Self {
         Self::new("rust-objcopy")
     }
 
+    #[inline]
     pub fn objdump() -> Self {
         Self::new("rust-objdump")
     }

@@ -20,11 +20,13 @@ use std::{
 };
 
 pub trait CommandExt: AsRef<Command> + AsMut<Command> {
+    #[inline]
     fn arg(&mut self, s: impl AsRef<OsStr>) -> &mut Self {
         self.as_mut().arg(s);
         self
     }
 
+    #[inline]
     fn args<I, S>(&mut self, args: I) -> &mut Self
     where
         I: IntoIterator<Item = S>,
@@ -34,6 +36,7 @@ pub trait CommandExt: AsRef<Command> + AsMut<Command> {
         self
     }
 
+    #[inline]
     fn optional<T>(&mut self, option: &Option<T>, op: impl FnOnce(&mut Self, &T)) -> &mut Self {
         if let Some(val) = option {
             op(self, val);
@@ -41,6 +44,7 @@ pub trait CommandExt: AsRef<Command> + AsMut<Command> {
         self
     }
 
+    #[inline]
     fn conditional(&mut self, condition: bool, op: impl FnOnce(&mut Self)) -> &mut Self {
         if condition {
             op(self);
@@ -48,6 +52,7 @@ pub trait CommandExt: AsRef<Command> + AsMut<Command> {
         self
     }
 
+    #[inline]
     fn option(&mut self, option: Option<impl AsRef<OsStr>>) -> &mut Self {
         if let Some(arg) = option {
             self.as_mut().arg(arg);
@@ -55,16 +60,19 @@ pub trait CommandExt: AsRef<Command> + AsMut<Command> {
         self
     }
 
+    #[inline]
     fn current_dir(&mut self, dir: impl AsRef<Path>) -> &mut Self {
         self.as_mut().current_dir(dir);
         self
     }
 
+    #[inline]
     fn env(&mut self, key: impl AsRef<OsStr>, val: impl AsRef<OsStr>) -> &mut Self {
         self.as_mut().env(key, val);
         self
     }
 
+    #[inline]
     fn status(&mut self) -> ExitStatus {
         self.as_mut().status().unwrap()
     }
@@ -93,6 +101,7 @@ pub trait CommandExt: AsRef<Command> + AsMut<Command> {
         msg
     }
 
+    #[inline]
     fn invoke(&mut self) {
         let status = self.status();
         if !status.success() {
@@ -104,6 +113,7 @@ pub trait CommandExt: AsRef<Command> + AsMut<Command> {
         }
     }
 
+    #[inline]
     fn output(&mut self) -> Output {
         let output = self.as_mut().output().unwrap();
         if !output.status.success() {
@@ -120,6 +130,7 @@ pub trait CommandExt: AsRef<Command> + AsMut<Command> {
 ext!(def; Ext);
 
 impl Ext {
+    #[inline]
     pub fn new(program: impl AsRef<OsStr>) -> Self {
         Self(Command::new(program))
     }

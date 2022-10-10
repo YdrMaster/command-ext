@@ -19,6 +19,7 @@ static SEARCH_DIRS: Lazy<Mutex<HashSet<PathBuf>>> = Lazy::new(|| {
 });
 
 impl Qemu {
+    #[inline]
     pub fn search_at(path: impl AsRef<Path>) {
         SEARCH_DIRS
             .lock()

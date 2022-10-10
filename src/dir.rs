@@ -25,6 +25,7 @@ pub fn rm(path: impl AsRef<Path>) -> Result<()> {
 }
 
 /// 创建 `path` 的父目录。
+#[inline]
 pub fn create_parent(path: impl AsRef<Path>) -> Result<()> {
     match path.as_ref().parent() {
         Some(parent) => fs::create_dir_all(parent),
@@ -35,6 +36,7 @@ pub fn create_parent(path: impl AsRef<Path>) -> Result<()> {
 /// 清空 `path` 目录。
 ///
 /// 如果返回 `Ok(())`，`path` 将是一个存在的空目录。
+#[inline]
 pub fn clear(path: impl AsRef<Path>) -> Result<()> {
     rm(&path)?;
     std::fs::create_dir_all(&path)
